@@ -7,15 +7,15 @@ import (
 	"github.com/Yandex-Practicum/go1fl-sprint6-final/pkg/morse"
 )
 
-func TextType(s string) (res string, err error) {
+func TextType(str string) (res string, err error) {
 
 	//ПРОВЕРЯЕМ НА НАЛИЧИЕ СИМВОЛОВ ВНЕ ТАБЛИЦЫ ПЕРЕВОДА
 	//В ВЕРХНИЙ РЕГИСТР
 
 	//наглядная проверка
-	//fmt.Println(s)
-
-	runes := []rune(strings.ToUpper(strings.TrimRight(s, "\r\n")))
+	//fmt.Println(str)
+	str = strings.ToUpper(strings.TrimRight(str, "\r\n"))
+	runes := []rune(str)
 	//ПРОВЕРЯЕМ СИМВОЛЫ СТРОКИ
 
 	for _, chk := range runes {
@@ -32,17 +32,18 @@ func TextType(s string) (res string, err error) {
 			return "", errors.New("ошибка: строка для разбора содержит символы, отсутствующие в словаре")
 		}
 	}
-	if len(s) == 0 {
+
+	if len(str) == 0 {
 		return "", errors.New("ошибка: строка для разбора не содержит текста")
 	}
-	if strings.Contains(s, "......") || strings.Contains(s, ".-") || strings.Contains(s, "-.") || strings.Contains(s, "- .") || strings.Contains(s, ". -") {
+	if strings.Contains(str, "......") || strings.Contains(str, ".-") || strings.Contains(str, "-.") || strings.Contains(str, "- .") || strings.Contains(str, ". -") {
 		//fmt.Printf("Это строка Морзе: %s\n", s)
-		res := morse.ToText(s)
+		res := morse.ToText(str)
 		//fmt.Printf("Это её перевод: %s\n", res)
 		return res, err
 	} else {
 		//fmt.Printf("Это строка текста: %s\n", s)
-		res := morse.ToMorse(s)
+		res := morse.ToMorse(str)
 		//fmt.Printf("Это её перевод: %s\n", res)
 		return res, err
 	}
