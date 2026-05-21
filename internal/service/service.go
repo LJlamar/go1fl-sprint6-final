@@ -11,14 +11,21 @@ func TextType(s string) (res string, err error) {
 
 	//ПРОВЕРЯЕМ НА НАЛИЧИЕ СИМВОЛОВ ВНЕ ТАБЛИЦЫ ПЕРЕВОДА
 	//В ВЕРХНИЙ РЕГИСТР
-	runes := []rune(strings.ToUpper(s))
+
+	//наглядная проверка
+	//fmt.Println(s)
+
+	runes := []rune(strings.ToUpper(strings.Trim(s, "\r\n")))
 	//ПРОВЕРЯЕМ СИМВОЛЫ СТРОКИ
 
 	for _, chk := range runes {
 		_, ok := morse.DefaultMorse[chk]
 
 		if !ok {
+
+			//наглядная проверка
 			//fmt.Println(chk)
+
 			return "", errors.New("ошибка: строка для разбора содержит символы, отсутствующие в словаре")
 		}
 	}
