@@ -15,13 +15,16 @@ func TextType(s string) (res string, err error) {
 	//наглядная проверка
 	//fmt.Println(s)
 
-	runes := []rune(strings.ToUpper(strings.Trim(s, "\r\n")))
+	runes := []rune(strings.ToUpper(strings.TrimRight(s, "\r\n")))
 	//ПРОВЕРЯЕМ СИМВОЛЫ СТРОКИ
 
 	for _, chk := range runes {
 		_, ok := morse.DefaultMorse[chk]
 
-		if !ok {
+		//ПРОВЕРКА НА СООТВЕТСТВИЕ СИМВОЛА В ТЕКСТЕ СИМВОЛАМ СЛОВАРЯ
+		//ТАКЖЕ, НА НАЛИЧИЕ ПРОБЕЛА, КОТОРЫЙ ОТЧЕГО-ТО В СЛОВАРЕ НЕ ПРОПИСАН,
+		//ВОЗМОЖНО ОТТОГО ЧТО НЕ ТРЕБУЕТ ПЕРЕВОДА
+		if !ok && chk != 32 {
 
 			//наглядная проверка
 			//fmt.Println(chk)
